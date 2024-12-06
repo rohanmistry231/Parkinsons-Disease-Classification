@@ -5,43 +5,46 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
-parkinsons_data = pd.read_csv('R:\\dktop\\final project  DE\\Parkinsson disease.csv')
-X = parkinsons_data.drop(columns=['name','status'], axis=1)
+parkinsons_data = pd.read_csv(
+    'S:\\Coding\\Github\\Design Engineering Project\\Parkinsons-Disease-Classification\\predictive system.py')
+X = parkinsons_data.drop(columns=['name', 'status'], axis=1)
 Y = parkinsons_data['status']
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
+X_train, X_test, Y_train, Y_test = train_test_split(
+    X, Y, test_size=0.2, random_state=2)
 scaler = StandardScaler()
 scaler.fit(X_train)
 
 # loading the saved model
-loaded_model = pickle.load(open('R:\\dktop\\final project  DE\\final\\trained_model.sav', 'rb'))
+loaded_model = pickle.load(
+    open('S:\\Coding\\Github\\Design Engineering Project\\Parkinsons-Disease-Classification\\trained_model.sav', 'rb'))
 
 # creating a function for Prediction
 
+
 def parkinsons_prediction(input_data):
-    
 
     # changing the input_data to numpy array
     input_data_as_numpy_array = np.asarray(input_data)
 
     # reshape the array as we are predicting for one instance
-    input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
+    input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
     std_data = scaler.transform(input_data_reshaped)
     prediction = loaded_model.predict(std_data)
     print(prediction)
 
     if (prediction[0] == 0):
-      return 'The person has not Parkinsons Disease'
+        return 'The person has not Parkinsons Disease'
     else:
-      return 'The person has Parkinsons Disease'
-  
+        return 'The person has Parkinsons Disease'
+
+
 def main():
-    
-    
+
     # giving a title
     st.title("Parkinson's Disease Prediction Web App")
-    
+
     # getting the input data from the user
-  
+
     mdvp_fo_hz = st.text_input('MDVP - Fo(Hz)')
     mdvp_fhi_hz = st.text_input('MDVP - Fhi(Hz)')
     mdvp_flo_hz = st.text_input('MDVP - Flo(Hz)')
@@ -64,16 +67,18 @@ def main():
     spread2 = st.text_input('spread2')
     d2 = st.text_input('D2')
     ppe = st.text_input('PPE')
-    
+
     # code for Prediction
     diagnosis = ''
-    
+
     # creating a button for Prediction
-    
+
     if st.button('Parkinsons Test Result'):
-        diagnosis = parkinsons_prediction([mdvp_fo_hz,mdvp_fhi_hz,mdvp_flo_hz,mdvp_jitter_hz,mdvp_jitter_abs,mdvp_rap,mdvp_ppq,jitter_ddp,mdvp_shimmer,mdvp_shimmer_db,shimmer_apq3,shimmer_apq5,mdvp_apq,shimmer_dda,nhr,hnr,rpde,dfa,spread1,spread2,d2,ppe])
-            
+        diagnosis = parkinsons_prediction([mdvp_fo_hz, mdvp_fhi_hz, mdvp_flo_hz, mdvp_jitter_hz, mdvp_jitter_abs, mdvp_rap, mdvp_ppq, jitter_ddp,
+                                          mdvp_shimmer, mdvp_shimmer_db, shimmer_apq3, shimmer_apq5, mdvp_apq, shimmer_dda, nhr, hnr, rpde, dfa, spread1, spread2, d2, ppe])
+
     st.success(diagnosis)
-       
+
+
 if __name__ == '__main__':
     main()

@@ -52,11 +52,7 @@ streamlit run Parkinsons Disease Knowledge.py
 This script loads the dataset, trains the classification model, and saves the trained model as `trained_model.sav`.
 
 ### Making Predictions
-Use the `Prediction.py` script to make predictions on new data:
-```sh
-python Pages/Prediction.py
-```
-Ensure the `trained_model.sav` file is in the same directory as the script.
+Open the Streamlit web interface in your browser. Navigate to the prediction page where you can input the biomedical voice measurements to get the prediction results.
 
 ## 📈 Results and Performance
 The model achieves high accuracy in distinguishing between healthy individuals and those with Parkinson’s disease. Performance metrics and results are analyzed in the `predictive system.py` script.

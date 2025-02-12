@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
 parkinsons_data = pd.read_csv(
-    'S:\\Coding\\Github\\Design Engineering Project\\Parkinsons-Disease-Classification\\predictive system.py')
+    'S:\\Coding\\Github\\Design Engineering Project\\Parkinsons-Disease-Classification\\Parkinsson disease.csv')
 X = parkinsons_data.drop(columns=['name', 'status'], axis=1)
 Y = parkinsons_data['status']
 X_train, X_test, Y_train, Y_test = train_test_split(
